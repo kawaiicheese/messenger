@@ -41,7 +41,7 @@ const Chat = ({ conversation, setActiveChat, markMessageRead }) => {
 
   const handleClick = async () => {
     await setActiveChat(conversation.otherUser.username);
-    await markMessageRead(conversation.id);
+    await markMessageRead(conversation);
     setNotificationCount(0);
   };
 

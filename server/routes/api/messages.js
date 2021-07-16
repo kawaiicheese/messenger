@@ -45,10 +45,10 @@ router.post("/", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
-    const { conversationId } = req.body;
+    const { conversationId, otherUserId } = req.body;
     const messages = await Message.update(
       { read: true },
-      { where: { conversationId, read: false } }
+      { where: { conversationId, senderId: otherUserId, read: false } }
     );
     res.json(messages);
   } catch (error) {
