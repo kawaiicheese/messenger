@@ -43,4 +43,17 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.put("/", async (req, res, next) => {
+  try {
+    const { conversationId } = req.body;
+    const messages = await Message.update(
+      { read: true },
+      { where: { conversationId, read: false } }
+    );
+    res.json(messages);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
