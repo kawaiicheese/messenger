@@ -23,7 +23,6 @@ const Sidebar = (props) => {
   const classes = useStyles();
   const conversations = props.conversations || [];
   const { handleChange, searchTerm } = props;
-  console.log(props);
 
   return (
     <Box className={classes.root}>
@@ -34,7 +33,6 @@ const Sidebar = (props) => {
         .filter((conversation) =>
           conversation.otherUser.username.includes(searchTerm)
         )
-        .sort((a, b) => (a.latestMessageDate > b.latestMessageDate ? -1 : 0))
         .map((conversation) => {
           return (
             <Chat

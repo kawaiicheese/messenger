@@ -27,7 +27,7 @@ router.post("/", async (req, res, next) => {
 
         return res.json({ message, sender });
       } else {
-        throw new Error("invalid conversationId");
+        res.status(403).json({ error: "invalid conversationId" });
       }
     }
     // if we don't have conversation id, find a conversation to make sure it doesn't already exist
