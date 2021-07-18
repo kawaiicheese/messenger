@@ -54,14 +54,26 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/", async (req, res, next) => {
+router.put("/read", async (req, res, next) => {
   try {
     const { conversationId, otherUserId } = req.body;
-    const messages = await Message.update(
-      { read: true },
-      { where: { conversationId, senderId: otherUserId, read: false } }
-    );
-    res.json(messages);
+    const conversation = await Conversation.findByPk(conversationId);
+    if (req.user) {
+      if (
+        conversation.user1Id === req.user.id ||
+        conversation.user2Id === req.user.id
+      ) {
+        const messages = await Message.update(
+          { read: true },
+          { where: { conversationId, senderId: otherUserId, read: false } }
+        );
+        res.json(messages);
+      } else {
+        res.sendStatus(403);
+      }
+    } else {
+      res.sendStatus(401);
+    }
   } catch (error) {
     next(error);
   }

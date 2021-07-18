@@ -121,7 +121,7 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
 
 export const markMessageRead = (conversation) => async (dispatch) => {
   try {
-    const { data } = await axios.put("/api/messages/", {
+    const { data } = await axios.put("/api/messages/read", {
       conversationId: conversation.id,
       otherUserId: conversation.otherUser.id,
     });

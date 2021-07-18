@@ -5,13 +5,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
 import { markMessageRead } from "../../store/utils/thunkCreators";
+import { theme } from "../../themes/theme";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    borderRadius: 8,
-    height: 80,
+    borderRadius: theme.spacing(5),
+    height: theme.spacing(40),
     boxShadow: "0 2px 10px 0 rgba(88,133,196,0.05)",
-    marginBottom: 10,
+    marginBottom: theme.spacing(5),
     display: "flex",
     alignItems: "center",
     "&:hover": {
@@ -19,10 +20,10 @@ const useStyles = makeStyles(() => ({
     },
   },
   notification: {
-    height: 20,
-    width: 20,
-    backgroundColor: "#3F92FF",
-    marginRight: 10,
+    height: theme.spacing(10),
+    width: theme.spacing(10),
+    backgroundColor: theme.palette.primary.main,
+    marginRight: theme.spacing(5),
     color: "white",
     fontSize: 10,
     letterSpacing: -0.5,
@@ -30,12 +31,12 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: theme.spacing(5),
   },
 }));
 
 const Chat = ({ conversation, setActiveChat, markMessageRead }) => {
-  const classes = useStyles();
+  const classes = useStyles(theme);
   const { otherUser, notificationCount: notifC } = conversation;
   const [notificationCount, setNotificationCount] = useState(notifC);
 

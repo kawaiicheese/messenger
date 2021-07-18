@@ -1,8 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Box, Typography } from "@material-ui/core";
+import { theme } from "../../themes/theme";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -15,7 +16,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: 5,
   },
   text: {
-    fontSize: 14,
+    fontSize: theme.typography.fontSize,
     color: "#91A3C0",
     letterSpacing: -0.2,
     padding: 8,
@@ -26,14 +27,14 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px 10px 0 10px",
   },
   avatar: {
-    height: 20,
-    width: 20,
-    marginTop: 6,
+    height: theme.spacing(10),
+    width: theme.spacing(10),
+    marginTop: theme.spacing(3),
   },
 }));
 
 const SenderBubble = ({ time, text, isLastReadMessage, otherUser }) => {
-  const classes = useStyles();
+  const classes = useStyles(theme);
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
