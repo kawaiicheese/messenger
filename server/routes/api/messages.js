@@ -63,11 +63,11 @@ router.put("/read", async (req, res, next) => {
         conversation.user1Id === req.user.id ||
         conversation.user2Id === req.user.id
       ) {
-        const messages = await Message.update(
+        await Message.update(
           { read: true },
           { where: { conversationId, senderId: otherUserId, read: false } }
         );
-        res.json(messages);
+        res.json(conversationId);
       } else {
         res.sendStatus(403);
       }

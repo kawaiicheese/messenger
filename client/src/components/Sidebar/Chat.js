@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import { BadgeAvatar, ChatContent } from "../Sidebar";
 import { makeStyles } from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
-import { markMessageRead } from "../../store/utils/thunkCreators";
+import { markMessagesRead } from "../../store/utils/thunkCreators";
 import { theme } from "../../themes/theme";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,15 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Chat = ({ conversation, setActiveChat, markMessageRead }) => {
+const Chat = ({ conversation, setActiveChat, markMessagesRead }) => {
   const classes = useStyles(theme);
-  const { otherUser, notificationCount: notifC } = conversation;
-  const [notificationCount, setNotificationCount] = useState(notifC);
+  const { otherUser, notificationCount } = conversation;
 
   const handleClick = async () => {
     await setActiveChat(conversation.otherUser.username);
-    await markMessageRead(conversation);
-    setNotificationCount(0);
+    await markMessagesRead(conversation);
   };
 
   return (
@@ -72,8 +70,8 @@ const mapDispatchToProps = (dispatch) => {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
     },
-    markMessageRead: (conversationId) => {
-      dispatch(markMessageRead(conversationId));
+    markMessagesRead: (conversation) => {
+      dispatch(markMessagesRead(conversation));
     },
   };
 };

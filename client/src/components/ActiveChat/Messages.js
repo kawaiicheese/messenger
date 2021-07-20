@@ -3,18 +3,7 @@ import { Box } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
 
-const Messages = ({ messages, otherUser, userId }) => {
-  const sentMessages = messages.filter(
-    (message) => message.senderId === userId
-  );
-  const unreadMessagesCount = sentMessages.filter(
-    (message) => !message.read
-  ).length;
-  const lastReadMessageId =
-    unreadMessagesCount < sentMessages.length
-      ? sentMessages[sentMessages.length - 1 - unreadMessagesCount].id
-      : 0;
-
+const Messages = ({ messages, otherUser, userId, lastReadMessageId }) => {
   return (
     <Box>
       {messages.map((message) => {

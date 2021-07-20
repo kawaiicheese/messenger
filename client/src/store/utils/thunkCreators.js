@@ -126,7 +126,7 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
   }
 };
 
-export const markMessageRead = (conversation) => async (dispatch) => {
+export const markMessagesRead = (conversation) => async (dispatch) => {
   try {
     const { data } = await axios.put("/api/messages/read", {
       conversationId: conversation.id,
@@ -134,6 +134,6 @@ export const markMessageRead = (conversation) => async (dispatch) => {
     });
     dispatch(updateReadMessages(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
