@@ -81,3 +81,39 @@ export const addNewConvoToStore = (state, recipientId, message) => {
     }
   });
 };
+
+export const updateReadMessagesInStore = (state, conversationId) => {
+  return state.map((convo) => {
+    if (convo.id === conversationId) {
+      const convoCopy = { ...convo };
+      const otherUserId = convo.otherUser.id;
+      convoCopy.messages = setMessagesToRead(convo.messages, otherUserId);
+      convoCopy.notificationCount = 0;
+      convoCopy.lastReadMessageId = getLastReadId(convo.messages, otherUserId);
+      return convoCopy;
+    } else {
+      return convo;
+    }
+  });
+};
+
+const setMessagesToRead = (messages, otherUserId) => {
+  return messages.map((message) => {
+    const copyMessage = message;
+    copyMessage.read =
+      copyMessage.senderId === otherUserId ? true : copyMessage.read;
+    return copyMessage;
+  });
+};
+
+const getLastReadId = (messages, otherUserId) => {
+  const sentMessages = messages.filter(
+    (message) => message.senderId !== otherUserId
+  );
+  const unreadMessagesCount = sentMessages.filter(
+    (message) => !message.read
+  ).length;
+  return unreadMessagesCount < sentMessages.length
+    ? sentMessages[sentMessages.length - unreadMessagesCount - 1].id
+    : 0;
+};

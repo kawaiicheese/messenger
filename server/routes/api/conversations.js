@@ -70,7 +70,15 @@ router.get("/", async (req, res, next) => {
       }
 
       // set properties for notification count and latest message preview
+      const notificationCount = await Message.findAll({
+        where: {
+          read: false,
+          senderId: convoJSON.otherUser.id,
+          conversationId: convoJSON.id,
+        },
+      });
       convoJSON.latestMessageText = convoJSON.messages[convoLength - 1].text;
+      convoJSON.notificationCount = notificationCount.length;
       convoJSON.latestMessageDate =
         convoJSON.messages[convoLength - 1].createdAt;
       conversations[i] = convoJSON;

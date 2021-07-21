@@ -24,10 +24,11 @@ const ActiveChat = () => {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
   const conversation =
-    useSelector(
-      (state) =>
-        state.conversations?.find(conversation => conversation.otherUser.username === state.activeConversation)
-        )
+    useSelector((state) =>
+      state.conversations?.find(
+        (conversation) =>
+          conversation.otherUser.username === state.activeConversation
+      )
     ) || {};
 
   return (
@@ -43,6 +44,7 @@ const ActiveChat = () => {
               messages={conversation.messages}
               otherUser={conversation.otherUser}
               userId={user.id}
+              lastReadMessageId={conversation.lastReadMessageId}
             />
             <Input
               otherUser={conversation.otherUser}
