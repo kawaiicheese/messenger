@@ -26,10 +26,7 @@ const ActiveChat = () => {
   const conversation =
     useSelector(
       (state) =>
-        state.conversations &&
-        state.conversations.find(
-          (conversation) =>
-            conversation.otherUser.username === state.activeConversation
+        state.conversations?.find(conversation => conversation.otherUser.username === state.activeConversation)
         )
     ) || {};
 
